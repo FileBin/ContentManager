@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "kcyreBjvXXs1fu0vSYD3SJPVT8dLoYPonccuVWCG+J/6AFT5AI8zNt77dtLVrJBW6BvjTc3jVvrD8XgAWlPozg==",
+  "success": true,
+  "projectFilePath": "/home/filebin/projects/ContentManager/ContentManager.Api/Web/ContentManager.Api.Web.csproj",
+  "expectedPackageFiles": [
+    "/home/filebin/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.7/microsoft.aspnetcore.app.ref.8.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}

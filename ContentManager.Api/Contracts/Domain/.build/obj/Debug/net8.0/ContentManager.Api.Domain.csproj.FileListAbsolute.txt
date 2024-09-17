@@ -1,0 +1,12 @@
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/bin/Debug/net8.0/ContentManager.Api.Domain.deps.json
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/bin/Debug/net8.0/ContentManager.Api.Domain.dll
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/bin/Debug/net8.0/ContentManager.Api.Domain.pdb
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ContentManager.Api.Domain.csproj.AssemblyReference.cache
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ContentManager.Api.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ContentManager.Api.Domain.AssemblyInfoInputs.cache
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ContentManager.Api.Domain.AssemblyInfo.cs
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ContentManager.Api.Domain.csproj.CoreCompileInputs.cache
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ContentManager.Api.Domain.dll
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/refint/ContentManager.Api.Domain.dll
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ContentManager.Api.Domain.pdb
+/home/filebin/projects/ContentManager/ContentManager.Api/Domain/.build/obj/Debug/net8.0/ref/ContentManager.Api.Domain.dll
