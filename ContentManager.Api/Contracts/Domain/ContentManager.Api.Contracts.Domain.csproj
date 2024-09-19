@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Filebin.Shared.Domain.Abstractions" Version="1.1.1" />
+    <PackageReference Include="Filebin.Shared.Exceptions" Version="1.0.0" />
+    <PackageReference Include="Filebin.Shared.Exceptions" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

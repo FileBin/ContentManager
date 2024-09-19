@@ -1,4 +1,5 @@
-﻿using ContentManager.Api.Contracts.Persistance.Data;
+﻿using ContentManager.Api.Contracts.Domain.Exceptions;
+using ContentManager.Api.Contracts.Persistance.Data;
 using ContentManager.Api.Contracts.Security.Repository;
 using ContentManager.Api.Contracts.Security.Services;
 using Filebin.Shared.Domain.Abstractions;
@@ -22,8 +23,7 @@ internal class SecureUnitOfWork(
             .All(b => b);
 
         if (!success) {
-            // TODO replace by throw AccessDeniedException
-            return Task.FromResult(-1);
+            throw new WriteAccessDeniedException();
         }
         return unitOfWork.SaveChangesAsync();
     }

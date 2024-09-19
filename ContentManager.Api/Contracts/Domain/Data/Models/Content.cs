@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ContentManager.Api.Domain.Enum;
+using ContentManager.Api.Contracts.Domain.Enum;
 using Filebin.Shared.Domain.Abstractions;
 
 namespace ContentManager.Api.Contracts.Domain.Data.Models;
