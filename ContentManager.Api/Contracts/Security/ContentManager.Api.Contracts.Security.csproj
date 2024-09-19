@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\ContentManager.Api.Contracts.Domain.csproj" />
+    <ProjectReference Include="..\Persistance\ContentManager.Api.Contracts.Persistance.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

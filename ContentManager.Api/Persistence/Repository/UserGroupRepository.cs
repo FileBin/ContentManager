@@ -9,4 +9,6 @@ namespace ContentManager.Api.Persistence.Repository;
 internal class UserGroupRepository(ApplicationContext context)
 : EntityCrudRepositoryBase<UserGroup>, IUserGroupRepository {
     protected override DbSet<UserGroup> GetDbSet() => context.UserGroups;
+    protected override IQueryable<UserGroup> StartQuery() => context.UserGroups;
+
 }

@@ -9,4 +9,5 @@ namespace ContentManager.Api.Persistence.Repository;
 internal class ContentCollectionRepository(ApplicationContext context)
 : EntityCrudRepositoryBase<ContentCollection>, IContentCollectionRepository {
     protected override DbSet<ContentCollection> GetDbSet() => context.ContentCollections;
+    protected override IQueryable<ContentCollection> StartQuery() => context.ContentCollections;
 }

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Security\ContentManager.Api.Contracts.Security.csproj" />
+    <ProjectReference Include="..\Contracts\Persistance\ContentManager.Api.Contracts.Persistance.csproj" />
+    <ProjectReference Include="..\Helpers\ContentManager.Api.Helpers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Filebin.Shared.Misc" Version="1.2.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

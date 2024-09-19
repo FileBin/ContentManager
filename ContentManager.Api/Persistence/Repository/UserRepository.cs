@@ -9,6 +9,7 @@ namespace ContentManager.Api.Persistence.Repository;
 
 internal class UserRepository(ApplicationContext context) : CrudRepositoryBase<User>, IUserRepository {
     protected override DbSet<User> GetDbSet() => context.Users;
+    protected override IQueryable<User> StartQuery() => context.Users;
 
     public Task<User?> GetByUserIdAsync(string userId, CancellationToken cancellationToken = default) {
         return GetDbSet()

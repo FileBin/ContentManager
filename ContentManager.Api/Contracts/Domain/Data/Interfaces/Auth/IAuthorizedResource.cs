@@ -17,4 +17,5 @@ public interface IAuthorizedResource : IEntity {
     public User Owner { get; }
     
     public bool IsPublic { get; }
+    public bool IsDraft { get; }
 }

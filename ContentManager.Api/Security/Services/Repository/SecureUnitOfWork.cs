@@ -1,11 +1,12 @@
 ﻿using ContentManager.Api.Contracts.Persistance.Data;
+using ContentManager.Api.Contracts.Security.Repository;
 using ContentManager.Api.Contracts.Security.Services;
 using Filebin.Shared.Domain.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 
-namespace ContentManager.Api.Security.Services;
+namespace ContentManager.Api.Security.Services.Repository;
 
 internal class SecureUnitOfWork(
     IDbContextAccessor dbContextAccessor,

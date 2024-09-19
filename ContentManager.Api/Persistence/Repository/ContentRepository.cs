@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContentManager.Api.Persistence.Repository;
 
-internal class ContentRepository(ApplicationContext context) 
+internal class ContentRepository(ApplicationContext context)
 : EntityCrudRepositoryBase<Content>, IContentRepository {
     protected override DbSet<Content> GetDbSet() => context.Contents;
+    protected override IQueryable<Content> StartQuery() => context.Contents;
 }
