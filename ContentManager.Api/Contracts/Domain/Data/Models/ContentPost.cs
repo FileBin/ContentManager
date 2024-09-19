@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ContentManager.Api.Contracts.Domain.Data.Interfaces;
 using ContentManager.Api.Contracts.Domain.Data.Interfaces.Auth;
@@ -10,19 +11,19 @@ public class ContentPost : IPost, IAuthorizedResource {
     [Column("id")]
     public Guid Id { get; set; }
 
+    [Column("name")]
+    [MaxLength(DefaultConstraints.MaxNameLength)]
     public required string Name { get; set; }
 
+    [Column("description")]
+    [MaxLength(DefaultConstraints.MaxDescriptionLength)]
     public string Description { get; set; } = "";
 
-    public bool IsPublished { get; set; } = false;
+    [Column("is_published")]
+    public bool IsPublic { get; set; } = false;
 
+    [Column("can_users_edit_tags")]
     public bool CanUsersEditTags { get; set; } = true;
-
-    public virtual IEnumerable<Tag> Tags { get; set; } = null!;
-    public virtual IEnumerable<Content> Attachments { get; set; } = null!;
-    public virtual IEnumerable<ContentPostCollection> ContentPostCollections { get; set; } = null!;
-
-
     [Column("reader_group_id")]
     public Guid? ReaderGroupId { get; set; }
 
@@ -36,8 +37,21 @@ public class ContentPost : IPost, IAuthorizedResource {
     public UserGroup? EditorGroup { get; set; } = null!;
 
     [Column("owner_group_id")]
-    public Guid? OwnerGroupId { get; set; }
+    public required Guid? OwnerGroupId { get; set; }
 
     [ForeignKey(nameof(OwnerGroupId))]
     public UserGroup? OwnerGroup { get; set; } = null!;
+
+    [Column("owner_user_id")]
+    [MaxLength(DefaultConstraints.MaxUserIdLength)]
+    public required string OwnerUserId { get; set; }
+
+    [ForeignKey(nameof(OwnerUserId))]
+    public User Owner { get; set; } = null!;
+
+    public virtual IEnumerable<Tag> Tags { get; set; } = null!;
+
+    public virtual IEnumerable<Content> Attachments { get; set; } = null!;
+    
+    public virtual IEnumerable<ContentPostCollection> ContentPostCollections { get; set; } = null!;
 }

@@ -1,9 +1,10 @@
 using ContentManager.Api.Persistence.Data;
-using Filebin.Shared.Misc;
-using Microsoft.EntityFrameworkCore;
+using Filebin.Shared.Domain.Abstractions;
 
 namespace ContentManager.Api.Persistence.Repository;
 
-internal class UnitOfWork(ApplicationContext context) : UnitOfWorkBase {
-    public override DbContext GetDbContext() => context;
+internal class UnitOfWork(ApplicationContext context) : IUnitOfWork {
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
+        return context.SaveChangesAsync(cancellationToken);
+    }
 }

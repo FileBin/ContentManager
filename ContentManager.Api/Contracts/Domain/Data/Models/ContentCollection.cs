@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ContentManager.Api.Contracts.Domain.Data.Interfaces;
 using ContentManager.Api.Contracts.Domain.Data.Interfaces.Auth;
@@ -10,13 +11,15 @@ public class ContentCollection : IPost, IAuthorizedResource {
     [Column("id")]
     public Guid Id { get; set; }
 
+    [Column("name")]
+    [MaxLength(DefaultConstraints.MaxNameLength)]
     public required string Name { get; set; }
 
+    [Column("description")]
+    [MaxLength(DefaultConstraints.MaxDescriptionLength)]
     public string Description { get; set; } = "";
 
-    public virtual IEnumerable<ContentPostCollection> ContentPostCollections { get; set; } = null!;
-
-    public bool IsPublished { get; set; }
+    public bool IsPublic { get; set; }
 
     [Column("reader_group_id")]
     public Guid? ReaderGroupId { get; set; }
@@ -35,4 +38,14 @@ public class ContentCollection : IPost, IAuthorizedResource {
 
     [ForeignKey(nameof(OwnerGroupId))]
     public UserGroup? OwnerGroup { get; set; } = null!;
+
+    [Column("owner_user_id")]
+    [MaxLength(DefaultConstraints.MaxUserIdLength)]
+    public required string OwnerUserId { get; set; }
+
+    [ForeignKey(nameof(OwnerUserId))]
+    public User Owner { get; set; } = null!;
+
+    public virtual IEnumerable<ContentPostCollection> ContentPostCollections { get; set; } = null!;
+
 }

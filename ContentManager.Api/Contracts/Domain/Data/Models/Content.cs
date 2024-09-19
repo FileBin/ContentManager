@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ContentManager.Api.Domain.Enum;
 using Filebin.Shared.Domain.Abstractions;
@@ -14,6 +15,7 @@ public class Content : IEntity {
     public required ContentType ContentType { get; set; }
 
     [Column("file_path")]
+    [MaxLength(DefaultConstraints.MaxPathLength)]
     public required string LocalFilePath { get; set; }
 
     [Column("post_order")]
