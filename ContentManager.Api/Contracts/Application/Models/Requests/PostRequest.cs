@@ -9,6 +9,7 @@ public record CreatePostRequest {
 
     [MaxLength(DefaultConstraints.MaxDescriptionLength)]
     public string? Description { get; init; }
+    public string[] Tags { get; init; } = [];
 
     public bool? CanUsersEditTags { get; init; }
     public Guid? ReaderGroupId { get; init; }
@@ -23,4 +24,5 @@ public record UpdatePostRequest {
     [MaxLength(DefaultConstraints.MaxDescriptionLength)]
     public string? Description { get; init; }
     public bool? CanUsersEditTags { get; init; }
+    public string[]? Tags { get; init; }
 }

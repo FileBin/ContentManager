@@ -38,7 +38,7 @@ internal class SecureUnitOfWork(
 
 
     private bool ValidateCreation(object entity) {
-        if (writeEntityGuards.Any(g => !g.CanCreate(entity))) {
+        if (writeEntityGuards.Any(g => !g.CanCreateEntity(entity))) {
             logger.LogError("Access denied to create entity {@Entity}", entity);
             return false;
         }
@@ -50,7 +50,7 @@ internal class SecureUnitOfWork(
 
         var original = context.Entry(entity).OriginalValues.ToObject();
 
-        if (writeEntityGuards.Any(g => !g.CanUpdate(entity, original))) {
+        if (writeEntityGuards.Any(g => !g.CanUpdateEntity(entity, original))) {
             logger.LogError("Access denied to update entity {@Entity}", entity);
             return false;
         }
@@ -59,7 +59,7 @@ internal class SecureUnitOfWork(
     }
 
     private bool ValidateDeletion(object entity) {
-        if (writeEntityGuards.Any(g => !g.CanDelete(entity))) {
+        if (writeEntityGuards.Any(g => !g.CanDeleteEntity(entity))) {
             logger.LogError("Access denied to delete entity {@Entity}", entity);
             return false;
         }
