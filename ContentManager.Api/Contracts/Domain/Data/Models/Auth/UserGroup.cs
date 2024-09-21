@@ -14,7 +14,7 @@ public class UserGroup : IAuthorizedResource {
     [MaxLength(DefaultConstraints.MaxNameLength)]
     public required string Name { get; set; }
 
-    public virtual IEnumerable<User> Users { get; set; } = null!;
+    public virtual ICollection<User> Users { get; set; } = null!;
 
     
     public Guid? ReaderGroupId { get; set; }

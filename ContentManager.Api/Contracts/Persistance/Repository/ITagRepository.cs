@@ -5,4 +5,5 @@ namespace ContentManager.Api.Contracts.Persistance.Repository;
 
 public interface ITagRepository : IRepository<Tag> {
     public Task<Tag?> GetByNameAsync(string name, CancellationToken cancellationToken = default);
+    public Task<Tag> GetOrCreateByNameAsync(string name, CancellationToken cancellationToken = default);
 }

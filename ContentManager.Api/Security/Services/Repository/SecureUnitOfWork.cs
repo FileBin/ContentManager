@@ -17,7 +17,7 @@ internal class SecureUnitOfWork(
 : ISecureUnitOfWork {
     private readonly DbContext context = dbContextAccessor.GetApplicationContext();
 
-    public Task<int> ApplyChangesAsync() {
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
         var success = context.ChangeTracker.Entries()
             .Select(ValidateChange)
             .All(b => b);
@@ -25,7 +25,7 @@ internal class SecureUnitOfWork(
         if (!success) {
             throw new WriteAccessDeniedException();
         }
-        return unitOfWork.SaveChangesAsync();
+        return unitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     private bool ValidateChange(EntityEntry change)

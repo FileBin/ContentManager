@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Domain\ContentManager.Api.Contracts.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enum/" />
+  </ItemGroup>
+
 </Project>

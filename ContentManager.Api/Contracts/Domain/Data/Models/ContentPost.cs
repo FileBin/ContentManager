@@ -36,7 +36,7 @@ public class ContentPost : IPost, IAuthorizedResource {
     [ForeignKey(nameof(OwnerUserId))]
     public User Owner { get; set; } = null!;
 
-    public virtual IEnumerable<Tag> Tags { get; set; } = null!;
-    public virtual IEnumerable<Content> Attachments { get; set; } = null!;
-    public virtual IEnumerable<ContentPostCollection> ContentPostCollections { get; set; } = null!;
+    public virtual ICollection<Tag> Tags { get; set; } = null!;
+    public virtual ICollection<Content> Attachments { get; set; } = null!;
+    public virtual ICollection<ContentPostCollection> ContentPostCollections { get; set; } = null!;
 }

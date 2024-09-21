@@ -36,5 +36,5 @@ public class ContentCollection : IPost, IAuthorizedResource {
     [ForeignKey(nameof(OwnerUserId))]
     public User Owner { get; set; } = null!;
 
-    public virtual IEnumerable<ContentPostCollection> ContentPostCollections { get; set; } = null!;
+    public virtual ICollection<ContentPostCollection> ContentPostCollections { get; set; } = null!;
 }

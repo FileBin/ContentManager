@@ -19,5 +19,5 @@ public class Tag {
     [ForeignKey(nameof(ParentName))]
     public virtual Tag? Parent { get; set; } = null!;
 
-    public virtual IEnumerable<ContentPost> ContentPosts { get; set; } = null!;
+    public virtual ICollection<ContentPost> ContentPosts { get; set; } = null!;
 }

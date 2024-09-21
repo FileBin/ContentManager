@@ -14,6 +14,6 @@ public class SecureContentPostRepository(IApplicationContext context, IEntityRea
     }
 
     protected override IQueryable<ContentPost> StartQuery() {
-        return readGuard.FilterQuery(context.ContentPosts);
+        return readGuard.FilterQuery(context.ContentPosts.Include(p => p.Tags));
     }
 }

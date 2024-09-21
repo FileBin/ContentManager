@@ -14,6 +14,6 @@ public class SecureContentRepository(IApplicationContext context, IEntityReadGua
     }
 
     protected override IQueryable<Content> StartQuery() {
-        return readGuard.FilterQuery(context.Contents);
+        return readGuard.FilterQuery(context.Contents.Include(c => c.ContentPost));
     }
 }

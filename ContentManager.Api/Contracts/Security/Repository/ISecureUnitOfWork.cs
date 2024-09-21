@@ -1,5 +1,5 @@
+using Filebin.Shared.Domain.Abstractions;
+
 namespace ContentManager.Api.Contracts.Security.Repository;
 
-public interface ISecureUnitOfWork {
-    public Task<int> ApplyChangesAsync();
-}
+public interface ISecureUnitOfWork : IUnitOfWork {}
