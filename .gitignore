@@ -1,1 +1,5 @@
 .build
+/shared/keycloak/backups
+/database/init.d/init.env
+.env
+**/appsettings.Development.json

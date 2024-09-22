@@ -1,10 +1,8 @@
 using System.Net.Http.Headers;
 using ContentManager.Api.Contracts.Application.Services;
+using ContentManager.Api.Contracts.Domain;
 using ContentManager.Api.Contracts.Domain.Data.Models;
-using ContentManager.Api.Contracts.Domain.Enum;
-using ContentManager.Api.Contracts.Domain.Exceptions;
 using ContentManager.Api.Contracts.Infrastructure.FileStorage.Services;
-using ContentManager.Api.Contracts.Persistance.Repository;
 using ContentManager.Api.Contracts.Security.Repository;
 using ContentManager.Api.Helpers.Extensions;
 using Filebin.Shared.Misc.Repository;
@@ -33,6 +31,10 @@ internal class ContentPostContentService(
 
         var filename = Path.GetFileNameWithoutExtension(file.FileName);
         var ext = Path.GetExtension(file.FileName);
+
+        if (filename.Length > DefaultConstraints.MaxFilenameLength) {
+            filename = filename[..DefaultConstraints.MaxFilenameLength];
+        }        
 
         filename = $"{contentPostId}/{filename}_{uniquePostfix}.{ext}";
 

@@ -11,6 +11,8 @@ public static class ConfigureServices {
     public static IServiceCollection AddPersistance(this IServiceCollection services) {
         services.RegisterServices();
 
+        services.AddDbContext<ApplicationContext>();
+
         return services;
     }
 

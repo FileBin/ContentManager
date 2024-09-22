@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ContentManager.Api.Contracts.Domain.Data.Interfaces.Auth;
-using Filebin.Shared.Domain.Abstractions;
 
 namespace ContentManager.Api.Contracts.Domain.Data.Models.Auth;
 

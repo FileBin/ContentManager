@@ -1,4 +1,3 @@
-using System;
 using ContentManager.Api.Contracts.Persistance.Data;
 using Microsoft.EntityFrameworkCore;
 

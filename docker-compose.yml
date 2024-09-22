@@ -1,0 +1,104 @@
+version: '3.8'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: content-manager-nginx-proxy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock:ro'
+    networks:
+      proxy: null
+      internal:
+        aliases:
+          - api.content-manager.local
+          - keycloak.content-manager.local
+          - pgadmin.content-manager.local
+          - seq.content-manager.local
+    restart: always
+
+  db:
+    image: postgres:16
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=${DB_ROOT_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database/init.d:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      internal:
+        aliases:
+          - postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    environment:
+      - VIRTUAL_HOST=pgadmin.content-manager.local
+      - PGADMIN_DEFAULT_EMAIL=user-name@email.com
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      internal:
+        aliases:
+          - pgadmin.innoclinic.local
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.6
+    environment:
+      - VIRTUAL_HOST=keycloak.content-manager.local
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgres/keycloak_db
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=${KEYCLOAK_DB_PASSWORD}
+    command: start-dev --http-port=80 --health-enabled=true
+    depends_on:
+      - db
+    ports:
+      - 9000:9000
+    networks:
+      internal:
+        aliases:
+          - keycloak.content-manager.local
+
+  content-manager-api:
+    image: content-manager-api
+    build:
+      context: ContentManager.Api
+    container_name: content-manager-api
+    environment:
+      - VIRTUAL_HOST=api.content-manager.local
+      - Swagger__OAuth__ClientSecret=${CONTENT_MANAGER_API_CLIENT_SECRET}
+      - Auth__ValidAuthority=http://keycloak.content-manager.local/realms/ContentManager
+      - ConnectionStrings__ApplicationDatabase='Host=postgres;Port=5432;Username=content_manager;Password=${DB_PASSWORD};Database=content_manager;'
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+    depends_on:
+      - db
+    volumes:
+      - './shared/nginx/certs/cacerts.crt:/usr/local/share/ca-certificates/cacerts.crt'
+    networks:
+      internal:
+        aliases:
+          - api.content-manager.local
+volumes:
+  postgres-data:
+  pgadmin-data:
+
+networks:
+  proxy:
+    driver: bridge
+  internal:
+    driver: bridge

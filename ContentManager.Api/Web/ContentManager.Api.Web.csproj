@@ -1,5 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <ItemGroup>
+    <ProjectReference Include="..\Applicaition\ContentManager.Api.Application.csproj" />
+    <ProjectReference Include="..\Presentation\ContentManager.Api.Presentation.csproj" />
+    <ProjectReference Include="..\Security\ContentManager.Api.Security.csproj" />
+    <ProjectReference Include="..\Persistence\ContentManager.Api.Persistence.csproj" />
+    <ProjectReference Include="..\Infrastructure.FileStorage\ContentManager.Api.Infrastructure.FileStorage.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>

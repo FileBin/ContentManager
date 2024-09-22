@@ -1,7 +1,6 @@
 using ContentManager.Api.Contracts.Domain.Data.Models.Auth;
 using ContentManager.Api.Contracts.Persistance.Repository;
 using ContentManager.Api.Persistence.Data;
-using Filebin.Shared.Domain.Abstractions;
 using Filebin.Shared.Misc.Repository;
 using Microsoft.EntityFrameworkCore;
 
