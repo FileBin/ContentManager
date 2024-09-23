@@ -1,5 +1,4 @@
 using ContentManager.Api.Contracts.Domain.Data.Models;
-using ContentManager.Api.Contracts.Domain.Data.Models.Auth;
 using ContentManager.Api.Contracts.Security.Repository;
 using ContentManager.Api.Contracts.Security.Services;
 using ContentManager.Api.Security.Services.Guards;
@@ -20,12 +19,10 @@ public static class ConfigureServices {
         services.AddScoped<ISecureContentRepository, SecureContentRepository>();
         services.AddScoped<ISecureContentPostRepository, SecureContentPostRepository>();
         services.AddScoped<ISecureContentCollectionRepository, SecureContentCollectionRepository>();
-        services.AddScoped<ISecureUserGroupRepository, SecureUserGroupRepository>();
 
         services.AddScoped<IEntityReadGuard<Content>, ContentReadGuard>();
         services.AddScoped<IEntityReadGuard<ContentPost>, AuthorizedResourceReadGuard<ContentPost>>();
         services.AddScoped<IEntityReadGuard<ContentCollection>, AuthorizedResourceReadGuard<ContentCollection>>();
-        services.AddScoped<IEntityReadGuard<UserGroup>, AuthorizedResourceReadGuard<UserGroup>>();
         
         services.AddScoped<IEntityWriteGuard, ContentWriteGuard>();
         services.AddScoped<IEntityWriteGuard, AuthorizedResourceWriteGuard>();

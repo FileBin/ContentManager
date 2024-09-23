@@ -5,8 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Domain\ContentManager.Api.Contracts.Domain.csproj" />
+    <ProjectReference Include="..\Contracts\Security\ContentManager.Api.Contracts.Security.csproj" />
   </ItemGroup>
 </Project>

@@ -6,5 +6,6 @@ public static class DefaultConstraints {
     public const int MaxPathLength = 256;
     public const int MaxFilenameLength = 64;
     public const int MaxUserIdLength = 36;
+    public const int MaxUserGroupLength = 64;
     public const int TagMaxDepth = 8;
 }

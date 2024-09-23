@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContentManager.Api.Security.Services.Repository;
 
-public class SecureContentPostRepository(IApplicationContext context, IEntityReadGuard<ContentPost> readGuard)
+public class SecureContentPostRepository(IDbContextAccessor accessor, IEntityReadGuard<ContentPost> readGuard)
 : EntityCrudRepositoryBase<ContentPost>, ISecureContentPostRepository {
     protected override DbSet<ContentPost> GetDbSet() {
-        return context.ContentPosts;
+        return accessor.GetApplicationContext().ContentPosts;
     }
 
     protected override IQueryable<ContentPost> StartQuery() {
-        return readGuard.FilterQuery(context.ContentPosts.Include(p => p.Tags));
+        return readGuard.FilterQuery(GetDbSet().Include(p => p.Tags));
     }
 }

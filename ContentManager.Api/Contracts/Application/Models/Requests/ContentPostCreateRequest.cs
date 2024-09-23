@@ -11,8 +11,11 @@ public record ContentPostCreateRequest {
     public string? Description { get; init; }
     public string[] Tags { get; init; } = [];
 
+    public bool IsPublic { get; init; }
+    public bool IsDraft { get; init; }
+
     public bool? CanUsersEditTags { get; init; }
-    public Guid? ReaderGroupId { get; init; }
-    public Guid? EditorGroupId { get; init; }
-    public Guid? OwnerGroupId { get; init; }
+    public string? ReaderGroupName { get; init; }
+    public string? EditorGroupName { get; init; }
+    public string? OwnerGroupName { get; init; }
 }

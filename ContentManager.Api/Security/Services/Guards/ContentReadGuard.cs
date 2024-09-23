@@ -13,17 +13,24 @@ public class ContentReadGuard(IUserContextAccessor userContextAccessor)
         query = query.Include(c => c.ContentPost);
 
         if (userId == null) {
-            return query.Where(c => c.ContentPost.IsAnonymousAccessible());
+            return query.Where(r => r.ContentPost.IsPublic && !r.ContentPost.IsDraft);
+        }
+
+        var userGroups = userContextAccessor.GetUserGroups();
+
+        if (!userGroups.Any()) {
+            return query
+                .AsTracking()
+                .Where(r => r.ContentPost.IsPublic && !r.ContentPost.IsDraft
+                         || r.ContentPost.OwnerUserId == userId);
         }
 
         return query
-            .Include(c => c.ContentPost.ReaderGroup)
-                .ThenInclude(g => g!.Users)
-            .Include(c => c.ContentPost.EditorGroup)
-                .ThenInclude(g => g!.Users)
-            .Include(c => c.ContentPost.OwnerGroup)
-                .ThenInclude(g => g!.Users)
             .AsTracking()
-            .Where(c => c.ContentPost.CanUserViewResource(userId));
+            .Where(r => r.ContentPost.IsPublic && !r.ContentPost.IsDraft
+                    || r.ContentPost.OwnerUserId == userId
+                    || r.ContentPost.ReaderGroupName != null && userGroups.Contains(r.ContentPost.ReaderGroupName)
+                    || r.ContentPost.EditorGroupName != null && userGroups.Contains(r.ContentPost.EditorGroupName)
+                    || r.ContentPost.OwnerGroupName != null && userGroups.Contains(r.ContentPost.OwnerGroupName));
     }
 }

@@ -15,7 +15,9 @@ public class AuthorizedResourceWriteGuard(IUserContextAccessor userContextAccess
         if (userId == null)
             return false;
 
-        return entity.CanUserDeleteResource(userId);
+        var userGroups = userContextAccessor.GetUserGroups();
+        
+        return entity.CanUserDeleteResource(userId, userGroups);
     }
 
     public override bool CanUpdate(IAuthorizedResource entity, IAuthorizedResource original) {
@@ -23,21 +25,23 @@ public class AuthorizedResourceWriteGuard(IUserContextAccessor userContextAccess
         if (userId == null)
             return false;
 
-        if (entity.OwnerGroupId != original.OwnerGroupId && !original.IsUserInOwnerGroup(userId))
+        var userGroups = userContextAccessor.GetUserGroups();
+
+        if (entity.OwnerGroupName != original.OwnerGroupName && !original.IsUserInOwnerGroup(userId, userGroups))
             return false;
 
-        if (entity.EditorGroupId != original.EditorGroupId && !original.CanUserGrantResource(userId))
+        if (entity.EditorGroupName != original.EditorGroupName && !original.CanUserGrantResource(userId, userGroups))
             return false;
 
-        if (entity.ReaderGroupId != original.ReaderGroupId && !original.CanUserGrantResource(userId))
+        if (entity.ReaderGroupName != original.ReaderGroupName && !original.CanUserGrantResource(userId, userGroups))
             return false;
 
-        if (entity.IsDraft != original.IsDraft && !original.CanUserGrantResource(userId))
+        if (entity.IsDraft != original.IsDraft && !original.CanUserGrantResource(userId, userGroups))
             return false;
 
-        if (entity.IsPublic != original.IsPublic && !original.CanUserGrantResource(userId))
+        if (entity.IsPublic != original.IsPublic && !original.CanUserGrantResource(userId, userGroups))
             return false;
 
-        return original.CanUserEditResource(userId);
+        return original.CanUserEditResource(userId, userGroups);
     }
 }

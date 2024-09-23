@@ -11,17 +11,17 @@ public class AuthorizedResourceReadGuard<T>(IUserContextAccessor userContextAcce
         var userId = userContextAccessor.GetUserId();
 
         if (userId == null) {
-            return query.Where(g => g.IsAnonymousAccessible());
+            return query.FilterViewAnonymousResources();
+        }
+
+        var userGroups = userContextAccessor.GetUserGroups();
+
+        if (!userGroups.Any()) {
+            return query
+                .AsTracking().FilterViewUserResources(userId);
         }
 
         return query
-            .Include(g => g.ReaderGroup)
-                .ThenInclude(g => g!.Users)
-            .Include(g => g.EditorGroup)
-                .ThenInclude(g => g!.Users)
-            .Include(g => g.OwnerGroup)
-                .ThenInclude(g => g!.Users)
-            .AsTracking()
-            .Where(g => g.CanUserViewResource(userId));
+            .AsTracking().FilterViewUserResources(userId, userGroups);
     }
 }

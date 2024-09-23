@@ -1,0 +1,24 @@
+2024-09-22 23:43:19.479 +03:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2024-09-22 23:43:19.579 +03:00 [DBG] Hosting starting
+2024-09-22 23:43:19.590 +03:00 [INF] User profile is available. Using '/home/filebin/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-09-22 23:43:19.600 +03:00 [DBG] Reading data from file '/home/filebin/.aspnet/DataProtection-Keys/key-a303291e-b532-467c-ba61-e39f75393215.xml'.
+2024-09-22 23:43:19.605 +03:00 [DBG] Reading data from file '/home/filebin/.aspnet/DataProtection-Keys/key-f399f963-f4a9-4416-a82e-130ada9590e0.xml'.
+2024-09-22 23:43:19.605 +03:00 [DBG] Reading data from file '/home/filebin/.aspnet/DataProtection-Keys/key-36a9cfce-53bd-468e-bdbc-d4f48fd9532e.xml'.
+2024-09-22 23:43:19.611 +03:00 [DBG] Found key {a303291e-b532-467c-ba61-e39f75393215}.
+2024-09-22 23:43:19.616 +03:00 [DBG] Found key {f399f963-f4a9-4416-a82e-130ada9590e0}.
+2024-09-22 23:43:19.617 +03:00 [DBG] Found key {36a9cfce-53bd-468e-bdbc-d4f48fd9532e}.
+2024-09-22 23:43:19.625 +03:00 [DBG] Considering key {36a9cfce-53bd-468e-bdbc-d4f48fd9532e} with expiration date 2024-12-21 16:00:47Z as default key.
+2024-09-22 23:43:19.627 +03:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2024-09-22 23:43:19.629 +03:00 [DBG] Using managed symmetric algorithm 'System.Security.Cryptography.Aes'.
+2024-09-22 23:43:19.629 +03:00 [DBG] Using managed keyed hash algorithm 'System.Security.Cryptography.HMACSHA256'.
+2024-09-22 23:43:19.640 +03:00 [DBG] Using key {36a9cfce-53bd-468e-bdbc-d4f48fd9532e} as the default key.
+2024-09-22 23:43:19.642 +03:00 [DBG] Key ring with default key {36a9cfce-53bd-468e-bdbc-d4f48fd9532e} was loaded during application startup.
+2024-09-22 23:43:19.697 +03:00 [INF] Now listening on: http://localhost:5200
+2024-09-22 23:43:19.697 +03:00 [DBG] Loaded hosting startup assembly ContentManager.Api.Web
+2024-09-22 23:43:19.697 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-22 23:43:19.697 +03:00 [INF] Hosting environment: Development
+2024-09-22 23:43:19.698 +03:00 [INF] Content root path: /home/filebin/projects/ContentManager/ContentManager.Api/Web
+2024-09-22 23:43:19.698 +03:00 [DBG] Hosting started
+2024-09-22 23:43:23.006 +03:00 [INF] Application is shutting down...
+2024-09-22 23:43:23.007 +03:00 [DBG] Hosting stopping
+2024-09-22 23:43:23.016 +03:00 [DBG] Hosting stopped

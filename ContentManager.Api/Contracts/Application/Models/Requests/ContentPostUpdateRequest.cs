@@ -11,4 +11,8 @@ public record ContentPostUpdateRequest {
     public string? Description { get; init; }
     public bool? CanUsersEditTags { get; init; }
     public string[]? Tags { get; init; }
+
+    public string? ReaderGroupName { get; init; }
+    public string? EditorGroupName { get; init; }
+    public string? OwnerGroupName { get; init; }
 }

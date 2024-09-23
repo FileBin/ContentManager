@@ -10,7 +10,12 @@ namespace ContentManager.Api.Persistence.Repository;
 
 internal class TagRepository(ApplicationContext context) : CrudRepositoryBase<Tag>, ITagRepository {
     protected override DbSet<Tag> GetDbSet() => context.Tags;
-    protected override IQueryable<Tag> StartQuery() => context.Tags.Include(t => t.Parent);
+    protected override IQueryable<Tag> StartQuery() {
+        return context.Tags
+            .Include(t => t.Parent)
+            .Include(t => t.ContentPosts)
+            .AsTracking();
+    }
 
     public Task<Tag?> GetByNameAsync(string name, CancellationToken cancellationToken = default) {
         name = name.Trim();
@@ -25,7 +30,7 @@ internal class TagRepository(ApplicationContext context) : CrudRepositoryBase<Ta
     private async Task<Tag> GetOrCreateByNameAsync(string name, int tagDepth, CancellationToken cancellationToken) {
         if (tagDepth <= 0)
             throw new TagDepthException(DefaultConstraints.TagMaxDepth);
-            
+
         name = name.Trim();
         return (await StartQuery()
             .SingleOrDefaultAsync(u => u.Name == name, cancellationToken))
@@ -38,7 +43,7 @@ internal class TagRepository(ApplicationContext context) : CrudRepositoryBase<Ta
             throw new TagDepthException(DefaultConstraints.TagMaxDepth);
 
         name = name.Trim();
-        var sepIdx = name.LastIndexOf(":");
+        var sepIdx = name.LastIndexOf(':');
 
         Tag? parentTag = null;
 

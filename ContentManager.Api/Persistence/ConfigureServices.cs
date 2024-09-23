@@ -17,15 +17,12 @@ public static class ConfigureServices {
     }
 
     private static IServiceCollection RegisterServices(this IServiceCollection services) {
-        services.AddScoped<IApplicationContext, ApplicationContext>();
         services.AddScoped<IDbContextAccessor, DbContextAccessor>();
 
         services.AddScoped<IContentRepository, ContentRepository>();
         services.AddScoped<IContentPostRepository, ContentPostRepository>();
         services.AddScoped<IContentCollectionRepository, ContentCollectionRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IUserGroupRepository, UserGroupRepository>();
         
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

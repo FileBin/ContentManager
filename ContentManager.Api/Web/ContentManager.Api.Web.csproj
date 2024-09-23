@@ -8,10 +8,19 @@
     <ProjectReference Include="..\Infrastructure.FileStorage\ContentManager.Api.Infrastructure.FileStorage.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>98d9b856-df1b-424d-9218-a23bd91d33bf</UserSecretsId>
   </PropertyGroup>
 
 </Project>

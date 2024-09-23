@@ -83,7 +83,7 @@ services:
       - VIRTUAL_HOST=api.content-manager.local
       - Swagger__OAuth__ClientSecret=${CONTENT_MANAGER_API_CLIENT_SECRET}
       - Auth__ValidAuthority=http://keycloak.content-manager.local/realms/ContentManager
-      - ConnectionStrings__ApplicationDatabase='Host=postgres;Port=5432;Username=content_manager;Password=${DB_PASSWORD};Database=content_manager;'
+      - 'ConnectionStrings__ApplicationDatabase=Host=postgres;Port=5432;Username=content_manager;Password=${DB_PASSWORD};Database=content_manager;'
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     depends_on:
       - db

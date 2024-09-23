@@ -4,6 +4,8 @@ using ContentManager.Api.Contracts.Application.Services;
 using ContentManager.Api.Contracts.Domain.Data.Models;
 using ContentManager.Api.Contracts.Persistance.Repository;
 using ContentManager.Api.Contracts.Security.Repository;
+using ContentManager.Api.Contracts.Security.Services;
+using ContentManager.Api.Helpers.Extensions;
 using Filebin.Shared.Domain.Abstractions;
 using Filebin.Shared.Misc.Repository;
 using Mapster;
@@ -14,25 +16,30 @@ internal class ContentPostService(
     ICancellationTokenObtainer cancellationTokenObtainer,
     ISecureContentPostRepository secureRepository,
     ITagRepository tagRepository,
-    ISecureUnitOfWork secureUnitOfWork)
+    ISecureUnitOfWork secureUnitOfWork,
+    IUserContextAccessor userContextAccessor)
 : IContentPostService {
     public async Task<ContentPostResponse> GetByIdAsync(Guid id) {
         return (await secureRepository.GetByIdOrThrow(id, CancellationToken)).Adapt<ContentPostResponse>();
     }
 
     public async Task<IReadOnlyCollection<ContentPostResponse>> GetPageAsync(IPageDesc pageDesc) {
-        return (await secureRepository
-            .GetPageAsync(pageDesc, CancellationToken))
-            .Adapt<List<ContentPostResponse>>();
+        var page = await secureRepository
+            .GetPageAsync(pageDesc, CancellationToken);
+
+        return page.Adapt<List<ContentPostResponse>>();
     }
 
     public async Task<Guid> CreateAsync(ContentPostCreateRequest createRequest) {
         var entity = createRequest.Adapt<ContentPost>();
+        entity.OwnerUserId = userContextAccessor.GetUserIdOrThrow();
+
         secureRepository.Create(entity);
 
         await SetTags(entity, createRequest.Tags);
 
         await secureUnitOfWork.SaveChangesAsync(CancellationToken);
+
         return entity.Id;
     }
 
@@ -54,9 +61,13 @@ internal class ContentPostService(
     }
 
     private async Task SetTags(ContentPost entity, string[] tagsList) {
+        entity.Tags ??= new HashSet<Tag>();
         entity.Tags.Clear();
         foreach (var tag in tagsList) {
             var tagEntity = await tagRepository.GetOrCreateByNameAsync(tag, CancellationToken);
+
+            tagEntity.ContentPosts ??= new HashSet<ContentPost>();
+            tagEntity.ContentPosts.Add(entity);
 
             entity.Tags.Add(tagEntity);
         }

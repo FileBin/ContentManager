@@ -14,4 +14,8 @@ public class UserContextAccessor(IHttpContextAccessor httpContextAccessor) : IUs
             .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?
             .Value;
     }
+
+    public IReadOnlyCollection<string> GetUserGroups() {
+        return []; //TODO implement user groups obtaining
+    }
 }
