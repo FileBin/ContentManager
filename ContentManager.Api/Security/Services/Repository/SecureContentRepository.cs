@@ -17,5 +17,17 @@ public class SecureContentRepository(IDbContextAccessor accessor, IEntityReadGua
         return readGuard.FilterQuery(GetDbSet().Include(c => c.ContentPost));
     }
 
+    public Task<int> GetMaxPostOrderAsync(Guid postId, int postVariant = 1, CancellationToken cancellationToken = default) {
+        return GetDbSet().Include(c => c.ContentPost)
+            .Where(c => c.PostId == postId && c.PostVariant == postVariant)
+            .Select(c => c.PostOrder)
+            .OrderBy(o => o)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
 
+    public Task<Content?> GetContentByPostIdOrderAndVariantAsync(Guid postId, int postOrder, int postVariant = 1, CancellationToken cancellationToken = default) {
+        return StartQuery()
+            .Where(c => c.PostId == postId && c.PostOrder == postOrder && c.PostVariant == postVariant)
+            .SingleOrDefaultAsync(cancellationToken);
+    }
 }

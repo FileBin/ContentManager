@@ -1,6 +1,7 @@
 .build
 /shared/keycloak/backups
 /database/init.d/init.env
+/ContentManager.Api/Web/file_storage
 .env
 **/appsettings.Development.json
 *.log

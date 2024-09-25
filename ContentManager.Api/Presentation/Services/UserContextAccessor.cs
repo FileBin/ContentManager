@@ -16,6 +16,6 @@ public class UserContextAccessor(IHttpContextAccessor httpContextAccessor) : IUs
     }
 
     public IReadOnlyCollection<string> GetUserGroups() {
-        return []; //TODO implement user groups obtaining
+        return []; //TODO implement user group obtaining
     }
 }

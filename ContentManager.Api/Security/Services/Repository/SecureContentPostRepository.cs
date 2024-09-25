@@ -14,6 +14,9 @@ public class SecureContentPostRepository(IDbContextAccessor accessor, IEntityRea
     }
 
     protected override IQueryable<ContentPost> StartQuery() {
-        return readGuard.FilterQuery(GetDbSet().Include(p => p.Tags));
+        return readGuard.FilterQuery(
+            GetDbSet()
+                .Include(p => p.Tags)
+                .Include(p => p.Attachments));
     }
 }

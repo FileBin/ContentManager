@@ -10,7 +10,9 @@ public class ContentPostMappings : IRegister {
     public void Register(TypeAdapterConfig config) {
         config.NewConfig<ContentPost, ContentPostResponse>()
             .Map(dest => dest.Tags, 
-                 src => src.Tags != null ? src.Tags.GetAllTags().ToHashSet().ToArray() : new string[0]);
+                 src => src.Tags != null ? src.Tags.GetAllTags().ToHashSet().ToArray() : new string[0])
+            .Map(dest => dest.ContentVariants,
+                 src => src.Attachments != null ? src.Attachments.ConvertContents() : new Dictionary<int, Guid>[0]);
 
         config.NewConfig<ContentPostCreateRequest, ContentPost>()
             .Ignore(dest => dest.Tags);
