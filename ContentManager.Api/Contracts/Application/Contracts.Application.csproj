@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>ContentManager.Api.Contracts.Application</RootNamespace>
+    <AssemblyName>ContentManager.Api.Contracts.Application</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\ContentManager.Api.Contracts.Domain.csproj" />
+    <ProjectReference Include="..\Domain\Contracts.Domain.csproj" />
   </ItemGroup>
 
 </Project>

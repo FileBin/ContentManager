@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Infrastructure.FileStorage\Contracts.Infrastructure.FileStorage.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ContentManager.Api.Infrastructure.FileStorage</RootNamespace>
+    <AssemblyName>ContentManager.Api.Infrastructure.FileStorage</AssemblyName>
+  </PropertyGroup>
+
+</Project>

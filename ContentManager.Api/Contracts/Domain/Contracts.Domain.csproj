@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>ContentManager.Api.Contracts.Domain</RootNamespace>
+    <AssemblyName>ContentManager.Api.Contracts.Domain</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

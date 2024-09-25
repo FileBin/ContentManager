@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ContentManager.Api.Helpers</RootNamespace>
+    <AssemblyName>ContentManager.Api.Helpers</AssemblyName>
+  </PropertyGroup>
+  
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Domain\Contracts.Domain.csproj" />
+    <ProjectReference Include="..\Contracts\Security\Contracts.Security.csproj" />
+  </ItemGroup>
+</Project>

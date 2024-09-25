@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Persistance\ContentManager.Api.Contracts.Persistance.csproj" />
+    <ProjectReference Include="..\Contracts\Persistance\Contracts.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

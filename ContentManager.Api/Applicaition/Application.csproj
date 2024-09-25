@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+    <PackageReference Include="Filebin.Shared.Misc" Version="1.2.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Application\Contracts.Application.csproj" />
+    <ProjectReference Include="..\Contracts\Persistance\Contracts.Persistance.csproj" />
+    <ProjectReference Include="..\Contracts\Security\Contracts.Security.csproj" />
+    <ProjectReference Include="..\Contracts\Infrastructure.FileStorage\Contracts.Infrastructure.FileStorage.csproj" />
+    <ProjectReference Include="..\Helpers\Helpers.csproj" />
+
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ContentManager.Api.Application</RootNamespace>
+    <AssemblyName>ContentManager.Api.Application</AssemblyName>
+  </PropertyGroup>
+
+</Project>

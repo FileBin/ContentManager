@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Security\ContentManager.Api.Contracts.Security.csproj" />
-    <ProjectReference Include="..\Contracts\Persistance\ContentManager.Api.Contracts.Persistance.csproj" />
-    <ProjectReference Include="..\Helpers\ContentManager.Api.Helpers.csproj" />
+    <ProjectReference Include="..\Contracts\Application\Contracts.Application.csproj" />
+    <ProjectReference Include="..\Contracts\Security\Contracts.Security.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +13,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>ContentManager.Api.Presentation</RootNamespace>
+    <AssemblyName>ContentManager.Api.Presentation</AssemblyName>
   </PropertyGroup>
 
 </Project>

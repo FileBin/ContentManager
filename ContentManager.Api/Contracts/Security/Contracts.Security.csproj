@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Contracts.Domain.csproj" />
+    <ProjectReference Include="..\Persistance\Contracts.Persistance.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ContentManager.Api.Contracts.Security</RootNamespace>
+    <AssemblyName>ContentManager.Api.Contracts.Security</AssemblyName>
+  </PropertyGroup>
+
+</Project>
