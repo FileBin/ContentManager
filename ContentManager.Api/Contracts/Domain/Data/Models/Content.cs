@@ -19,6 +19,8 @@ public class Content : IEntity {
     public required int PostOrder { get; set; }
     public int PostVariant { get; set; } = 1;
 
+    public Dictionary<string, string>? QualityLevels { get; set; }
+
     public Guid PostId { get; set; }
 
     [ForeignKey(nameof(PostId))]

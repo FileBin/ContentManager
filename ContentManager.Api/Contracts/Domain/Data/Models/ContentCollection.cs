@@ -29,5 +29,5 @@ public class ContentCollection : IPost, IAuthorizedResource {
     
     public required string OwnerUserId { get; set; }
 
-    public virtual ICollection<ContentPostCollection> ContentPostCollections { get; set; } = null!;
+    public virtual ISet<ContentPostCollection> ContentPostCollections { get; set; } = null!;
 }

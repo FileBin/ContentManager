@@ -32,5 +32,5 @@ public class ContentPost : IPost, IAuthorizedResource {
 
     public virtual ISet<Tag> Tags { get; set; } = null!;
     public virtual ICollection<Content> Attachments { get; set; } = null!;
-    public virtual ICollection<ContentPostCollection> ContentPostCollections { get; set; } = null!;
+    public virtual ISet<ContentPostCollection> ContentPostCollections { get; set; } = null!;
 }

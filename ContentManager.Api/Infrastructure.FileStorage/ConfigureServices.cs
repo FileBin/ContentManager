@@ -17,6 +17,7 @@ public static class ConfigureServices {
 
     private static IServiceCollection RegisterServices(this IServiceCollection services) {
         services.AddScoped<IFileStorageService, FileStorageService>();
+        services.AddScoped<IImageProcessingService, ImageProcessingService>();
 
         return services;
     }

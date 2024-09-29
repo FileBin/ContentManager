@@ -12,8 +12,8 @@ namespace ContentManager.Api.Presentation.Controllers;
 public class ContentPostContentController(IContentPostContentService service) : ControllerBase {
     [HttpGet("contents/{id:guid}")]
     [AllowAnonymous]
-    public async Task<IActionResult> DownloadContent([FromRoute] Guid id) {
-        var file = await service.DownloadContentAsync(id);
+    public async Task<IActionResult> DownloadContent([FromRoute] Guid id, [FromQuery] string? quality) {
+        var file = await service.DownloadContentAsync(id, quality);
         return File(file);
     }
 

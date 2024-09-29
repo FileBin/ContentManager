@@ -2,24 +2,17 @@ using ContentManager.Api.Contracts.Domain;
 using ContentManager.Api.Contracts.Domain.Data.Models;
 using ContentManager.Api.Contracts.Domain.Exceptions;
 using ContentManager.Api.Contracts.Persistance.Repository;
-using ContentManager.Api.Persistence.Data;
+using Filebin.Shared.Domain.Abstractions;
 using Filebin.Shared.Misc.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContentManager.Api.Persistence.Repository;
 
-internal class TagRepository(ApplicationContext context) : CrudRepositoryBase<Tag>, ITagRepository {
-    protected override DbSet<Tag> GetDbSet() => context.Tags;
-    protected override IQueryable<Tag> StartQuery() {
-        return context.Tags
-            .Include(t => t.Parent)
-            .Include(t => t.ContentPosts)
-            .AsTracking();
-    }
-
+internal class TagRepository(IEntityAccessor accessor, IEntityObtainer obtainer)
+: CrudRepositoryBase<Tag>(accessor, obtainer), ITagRepository {
     public Task<Tag?> GetByNameAsync(string name, CancellationToken cancellationToken = default) {
         name = name.Trim();
-        return StartQuery()
+        return Query
             .SingleOrDefaultAsync(u => u.Name == name, cancellationToken);
     }
 
@@ -32,10 +25,10 @@ internal class TagRepository(ApplicationContext context) : CrudRepositoryBase<Ta
             throw new TagDepthException(DefaultConstraints.TagMaxDepth);
 
         name = name.Trim();
-        return (await StartQuery()
+        return (await Query
             .SingleOrDefaultAsync(u => u.Name == name, cancellationToken))
             ??
-            GetDbSet().Add(await CreateTagFromName(name, tagDepth, cancellationToken)).Entity;
+            DbSet.Add(await CreateTagFromName(name, tagDepth, cancellationToken)).Entity;
     }
 
     private async Task<Tag> CreateTagFromName(string name, int tagDepth, CancellationToken cancellationToken) {

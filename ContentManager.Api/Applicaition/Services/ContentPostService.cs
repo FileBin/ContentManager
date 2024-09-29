@@ -14,17 +14,17 @@ namespace ContentManager.Api.Application.Services;
 
 internal class ContentPostService(
     ICancellationTokenObtainer cancellationTokenObtainer,
-    ISecureContentPostRepository secureRepository,
+    ISecureRepoContainer<IContentPostRepository, ContentPost> postContainer,
     ITagRepository tagRepository,
     ISecureUnitOfWork secureUnitOfWork,
     IUserContextAccessor userContextAccessor)
 : IContentPostService {
     public async Task<ContentPostResponse> GetByIdAsync(Guid id) {
-        return (await secureRepository.GetByIdOrThrow(id, CancellationToken)).Adapt<ContentPostResponse>();
+        return (await postContainer.Repo.GetByIdOrThrow(id, CancellationToken)).Adapt<ContentPostResponse>();
     }
 
     public async Task<IReadOnlyCollection<ContentPostResponse>> GetPageAsync(IPageDesc pageDesc) {
-        var page = await secureRepository
+        var page = await postContainer.Repo
             .GetPageAsync(pageDesc, CancellationToken);
 
         return page.Adapt<List<ContentPostResponse>>();
@@ -34,7 +34,7 @@ internal class ContentPostService(
         var entity = createRequest.Adapt<ContentPost>();
         entity.OwnerUserId = userContextAccessor.GetUserIdOrThrow();
 
-        secureRepository.Create(entity);
+        postContainer.Repo.Create(entity);
 
         await SetTags(entity, createRequest.Tags);
 
@@ -44,12 +44,12 @@ internal class ContentPostService(
     }
 
     public async Task DeleteAsync(Guid id) {
-        await secureRepository.DeleteByIdAsync(id, CancellationToken);
+        await postContainer.Repo.DeleteByIdAsync(id, CancellationToken);
         await secureUnitOfWork.SaveChangesAsync(CancellationToken);
     }
 
     public async Task UpdateAsync(Guid id, ContentPostUpdateRequest updateRequest) {
-        var entity = await secureRepository.GetByIdOrThrow(id, CancellationToken);
+        var entity = await postContainer.Repo.GetByIdOrThrow(id, CancellationToken);
 
         updateRequest.Adapt(entity);
 

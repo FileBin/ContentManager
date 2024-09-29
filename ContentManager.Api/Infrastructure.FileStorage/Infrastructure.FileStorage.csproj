@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Infrastructure.FileStorage\Contracts.Infrastructure.FileStorage.csproj" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
   </ItemGroup>
 
   <PropertyGroup>

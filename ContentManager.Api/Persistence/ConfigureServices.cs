@@ -18,6 +18,9 @@ public static class ConfigureServices {
 
     private static IServiceCollection RegisterServices(this IServiceCollection services) {
         services.AddScoped<IDbContextAccessor, DbContextAccessor>();
+        
+        services.AddScoped<IEntityAccessor, EntityAccessor>();
+        services.AddScoped<IEntityObtainer, EntityAccessor>();
 
         services.AddScoped<IContentRepository, ContentRepository>();
         services.AddScoped<IContentPostRepository, ContentPostRepository>();

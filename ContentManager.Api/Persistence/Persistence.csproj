@@ -5,11 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>98d9b856-df1b-424d-9218-a23bd91d33bf</UserSecretsId>
+    <RootNamespace>ContentManager.Api.Persistence</RootNamespace>
+    <AssemblyName>ContentManager.Api.Persistence</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
-    <PackageReference Include="Filebin.Shared.Misc" Version="1.2.0" />
+    <PackageReference Include="Filebin.Shared.Misc" Version="1.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
