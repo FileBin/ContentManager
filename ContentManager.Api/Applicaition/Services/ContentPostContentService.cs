@@ -100,10 +100,18 @@ internal class ContentPostContentService(
 
         var stream = fileStorage.ReadFile(content.LocalFilePath).BaseStream;
 
-        return new FileResponse {
+        var resp = new FileResponse {
             FileStream = stream,
             FileName = filename,
         };
+
+        if (MimeTypes.TryGetMimeType(filename, out var mimeType)) {
+            resp = resp with {
+                ContentType = mimeType
+            };
+        }
+
+        return resp;
     }
 
     private async Task<FileResponse> DownloadPreviewAsync(Content content, string previewName) {
@@ -116,6 +124,7 @@ internal class ContentPostContentService(
         return new FileResponse {
             FileStream = stream,
             FileName = filename,
+            ContentType = "image/jpeg"
         };
     }
 

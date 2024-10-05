@@ -8,6 +8,21 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/posts/recent',
+      name: 'recent-posts',
+      component: () => import('../views/RecentPosts.vue')
+    },
+    {
+      path: '/oidc/callback',
+      name: 'oidc-callback',
+      component: () => import('../views/oidc/Callback.vue')
+    },
+    {
+      path: '/oidc/silent-renew',
+      name: 'oidc-silent-renew',
+      component: () => import('../views/oidc/SilentRenew.vue')
     }
   ]
 })

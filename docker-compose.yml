@@ -8,6 +8,7 @@ services:
       - '443:443'
     volumes:
       - '/var/run/docker.sock:/tmp/docker.sock:ro'
+      - './shared/nginx/vhost.d:/etc/nginx/vhost.d'
     networks:
       proxy: null
       internal:
@@ -89,6 +90,7 @@ services:
       - db
     volumes:
       - './shared/nginx/certs/cacerts.crt:/usr/local/share/ca-certificates/cacerts.crt'
+      - './ContentManager.Api/Web/file_storage:/app/file_storage'
     networks:
       internal:
         aliases:

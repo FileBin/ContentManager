@@ -10,7 +10,10 @@
     <ProjectReference Include="..\Contracts\Security\Contracts.Security.csproj" />
     <ProjectReference Include="..\Contracts\Infrastructure.FileStorage\Contracts.Infrastructure.FileStorage.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
-
+    <PackageReference Include="MimeTypes" Version="2.5.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <PropertyGroup>

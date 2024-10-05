@@ -16,12 +16,12 @@ done
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY --from=prepare /proj/src .
-RUN dotnet restore "./Web/ContentManager.Api.Web.csproj"
+RUN dotnet restore "./Web/Web.csproj"
 COPY --from=prepare /src .
-RUN dotnet build "./Web/ContentManager.Api.Web.csproj" --no-restore -c Release -o /app/build
+RUN dotnet build "./Web/Web.csproj" --no-restore -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./Web/ContentManager.Api.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish "./Web/Web.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

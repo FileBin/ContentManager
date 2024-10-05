@@ -35,6 +35,6 @@ public class ContentPostContentController(IContentPostContentService service) : 
     }
 
     private IActionResult File(FileResponse file) {
-        return File(file.FileStream, file.ContentType, file.FileName);
+        return File(file.FileStream, file.ContentType, file.FileName );
     }
 }

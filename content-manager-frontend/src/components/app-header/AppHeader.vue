@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { CircleUser, FileBadge2, Menu, Package2, Search } from 'lucide-vue-next'
+import { Menu, Search } from 'lucide-vue-next'
 
 import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import ThemeSwitch from '../theme-switch/ThemeSwitch.vue'
 import AppIcon from './AppIcon.vue'
+import HeaderUserWidget from '../user/HeaderUserWidget.vue'
 
 const navLinks: { [id: string]: string } = {
-  'New post': '/post/create',
   'Recent posts': '/posts/recent',
+  'New post': '/post/create',
 }
 
 const AppName = 'ContentManager'
@@ -20,9 +20,9 @@ const AppName = 'ContentManager'
   <header class="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
     <nav aria-label="header-nav"
       class="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-      <a href="/" class="flex items-center gap-2 text-lg font-semibold md:text-base">
+      <RouterLink to="/" class="flex items-center gap-2 text-lg font-semibold md:text-base">
         <AppIcon />
-      </a>
+      </RouterLink>
 
       <RouterLink to="/"
         class="text-base text-accent-foreground transition-colors hover:text-primary-foreground text-nowrap">
@@ -67,22 +67,7 @@ const AppName = 'ContentManager'
         </div>
       </form>
       <ThemeSwitch />
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child>
-          <Button variant="secondary" size="icon" class="rounded-full">
-            <CircleUser class="h-5 w-5" />
-            <span class="sr-only">Toggle user menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <HeaderUserWidget />
     </div>
   </header>
 </template>
