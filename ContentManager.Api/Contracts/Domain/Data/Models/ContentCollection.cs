@@ -6,9 +6,7 @@ using ContentManager.Api.Contracts.Domain.Data.Interfaces.Auth;
 namespace ContentManager.Api.Contracts.Domain.Data.Models;
 
 [Table("content_collections")]
-public class ContentCollection : IPost, IAuthorizedResource {
-    public Guid Id { get; set; }
-    
+public class ContentCollection : BaseEntity, IPost, IAuthorizedResource {    
     [MaxLength(DefaultConstraints.MaxNameLength)]
     public required string Name { get; set; }
 

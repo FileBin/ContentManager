@@ -6,6 +6,7 @@ namespace ContentManager.Api.Contracts.Application.Services;
 
 public interface IContentPostService {
     Task<ContentPostResponse> GetByIdAsync(Guid id);
+    public Task<int> GetCountAsync();
     Task<IReadOnlyCollection<ContentPostResponse>> GetPageAsync(IPageDesc pageDesc);
     Task<Guid> CreateAsync(ContentPostCreateRequest createRequest);
     Task UpdateAsync(Guid id, ContentPostUpdateRequest updateRequest);

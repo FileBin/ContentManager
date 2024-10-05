@@ -22,16 +22,14 @@ internal class ContentPostContentService(
     ICancellationTokenObtainer cancellationTokenObtainer)
 : IContentPostContentService {
     public async Task<Guid> UploadContentAsync(IFormFile file, Guid postId, int? postOrder = null, int? postVariant = null) {
-        await postContainer.Repo.EnsureExistsAsync(postId, CancellationToken);
+        var post = await postContainer.Repo.GetByIdOrThrow(postId, CancellationToken);
 
         var fileStream = file.OpenReadStream();
 
         var contentId = Guid.NewGuid();
-
         var contentType = fileStream.GetContentType();
 
         var uniquePostfix = Path.GetFileNameWithoutExtension(Path.GetRandomFileName());
-
         var filename = Path.GetFileNameWithoutExtension(file.FileName);
         var ext = Path.GetExtension(file.FileName);
 
@@ -54,6 +52,10 @@ internal class ContentPostContentService(
         }
 
         contentContainer.Repo.Create(content);
+
+        post.Attachments.Add(content);
+        post.SetPreview();
+
         var stream = fileStorage.WriteFile(filename).BaseStream;
 
         var databaseTask = secureUnitOfWork.SaveChangesAsync(CancellationToken);

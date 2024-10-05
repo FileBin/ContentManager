@@ -12,6 +12,9 @@ public record ContentPostUpdateRequest {
     public bool? CanUsersEditTags { get; init; }
     public string[]? Tags { get; init; }
 
+    public int? PreviewOrder { get; set; }
+    public int? PreviewVariant { get; set; }
+
     public string? ReaderGroupName { get; init; }
     public string? EditorGroupName { get; init; }
     public string? OwnerGroupName { get; init; }

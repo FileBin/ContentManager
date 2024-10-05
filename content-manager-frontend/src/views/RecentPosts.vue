@@ -14,6 +14,10 @@ import {
 import {
   Button,
 } from '@/components/ui/button'
+
+
+const itemsPerPage = 80
+const totalItems = 80
 </script>
 
 <template>
@@ -24,8 +28,8 @@ import {
       </CardTitle>
     </CardHeader>
     <CardContent class="w-full">
-      <Pagination v-slot="{ page }" :items-per-page="80" :total="1000" :sibling-count="1" show-edges :default-page="2"
-      class = "m-auto">
+      <Pagination v-slot="{ page }" :items-per-page="itemsPerPage" :total="totalItems" :sibling-count="1" show-edges :default-page="2"
+      class = "m-auto" @update:page="">
         <PaginationList v-slot="{ items }" class="flex justify-center items-center gap-1">
           <PaginationFirst />
           <PaginationPrev />

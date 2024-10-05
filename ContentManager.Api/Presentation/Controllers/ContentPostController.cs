@@ -16,6 +16,12 @@ public class ContentPostController(IContentPostService service) : ControllerBase
         return Ok(await service.GetPageAsync(pageDesc));
     }
 
+    [HttpGet("/count")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCount() {
+        return Ok(await service.GetCountAsync());
+    }
+
     [HttpGet("{id:guid}")]
     [AllowAnonymous]
     public async Task<IActionResult> GetPost([FromRoute] Guid id) {

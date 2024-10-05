@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using ContentManager.Api.Contracts.Application.Services;
 using ContentManager.Api.Contracts.Security.Services;
 using ContentManager.Api.Presentation.Configuration;
@@ -14,7 +15,12 @@ namespace ContentManager.Api.Presentation;
 
 public static class ConfigureServices {
     public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration config) {
-        services.AddControllers().AddApplicationPart(typeof(ConfigureServices).Assembly);
+        services.AddControllers()
+        .AddApplicationPart(typeof(ConfigureServices).Assembly)
+        .AddJsonOptions(options => {
+            options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        });
+        
         services.AddHttpContextAccessor();
         services.RegisterServices();
 

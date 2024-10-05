@@ -51,6 +51,8 @@ internal class ContentPostService(
     public async Task UpdateAsync(Guid id, ContentPostUpdateRequest updateRequest) {
         var entity = await postContainer.Repo.GetByIdOrThrow(id, CancellationToken);
 
+        entity.SetPreview(updateRequest.PreviewOrder, updateRequest.PreviewVariant ?? 1);
+
         updateRequest.Adapt(entity);
 
         if (updateRequest.Tags is not null) {
@@ -71,6 +73,10 @@ internal class ContentPostService(
 
             entity.Tags.Add(tagEntity);
         }
+    }
+
+    public Task<int> GetCountAsync() {
+        return postContainer.Repo.GetCountAsync(CancellationToken);
     }
 
     private CancellationToken CancellationToken => cancellationTokenObtainer.GetCancellationToken();

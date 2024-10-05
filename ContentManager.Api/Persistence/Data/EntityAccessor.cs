@@ -21,6 +21,7 @@ internal class EntityAccessor(ApplicationContext applicationContext) : IEntityAc
             query = (IQueryable<T>)qContentPost
                 .Include(p => p.Attachments)
                 .Include(p => p.Tags)
+                .Include(p => p.Preview)
                 .Include(p => p.ContentPostCollections);
         }
 

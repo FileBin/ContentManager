@@ -9,9 +9,14 @@ public record ContentPostResponse {
     public string[] Tags { get; init; } = [];
     public ContentVariantResponse[] ContentVariants { get; init; } = [];
 
+    public Guid? PreviewId { get; set; }
+
     public bool IsPublic { get; init; }
     public bool IsDraft { get; init; }
     public bool CanUsersEditTags { get; init; } = false;
+    
+    public DateTime CreatedAt { get; init; }
+    public DateTime? UpdatedAt { get; init; }
 
     //FIXME SECURITY WRN: make this group ids null for readers and anonymous users
     public string? ReaderGroupName { get; init; }
