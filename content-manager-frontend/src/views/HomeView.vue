@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import Page from '@/components/utils/Page.vue';
 </script>
 
 <template>
-  <Card class="w-full max-w-sm">
-    <CardHeader>
-      <CardTitle class="text-2xl">
-        Home page
-      </CardTitle>
-      <CardDescription>
-        This is home page
-      </CardDescription>
-    </CardHeader>
-    <CardContent class="grid gap-4">
-      ContentManager lorem ipsum...
-    </CardContent>
-  </Card>
+  <Page title="Home page" description="This is home page">
+
+    ContentManager lorem ipsum...
+  </Page>
+
 </template>

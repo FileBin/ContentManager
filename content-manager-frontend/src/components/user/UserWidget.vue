@@ -14,8 +14,23 @@ import { getUserManager } from '@/services/oidc/UserManager';
 
 const userStore = useUserInfo();
 
+const mgr = getUserManager(userStore);
+
 function signOut() {
-  getUserManager(userStore).signoutRedirect()
+  mgr.signoutRedirect()
+}
+
+//test only
+async function refreshToken() {
+  await mgr.signinSilent()
+    .then(user => console.log('token renewed'))
+    .catch(err => {
+      alert('Session expired. Going out!');
+      console.log(err);
+      mgr.signoutRedirect()
+        .then(resp => console.log('signed out', resp))
+        .catch(err => console.log(err))
+    })
 }
 
 </script>
@@ -37,6 +52,9 @@ function signOut() {
     </PopoverTrigger>
     <PopoverContent>
       <template v-if="userStore.user.isLoggedIn">
+        <Button variant="outline" :onclick="refreshToken">
+          Refresh Token
+        </Button>
         <Button variant="outline" :onclick="signOut">
           Sign Out
         </Button>

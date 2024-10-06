@@ -6,5 +6,5 @@ import { useUserInfo } from '@/stores/current_user';
 const userStore = useUserInfo();
 getUserManager(userStore).signinRedirectCallback();
 
-router.push('/')
+router.push({ path: '/' })
 </script>

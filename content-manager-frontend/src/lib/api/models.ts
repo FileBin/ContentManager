@@ -29,13 +29,13 @@ export interface ContentPostUpdateRequest {
 
 export interface ContentPostResponse {
   id: string;
-  name?: string;
+  name: string;
   description?: string;
-  tags?: string[];
+  tags: string[];
 
   previewId: string;
 
-  contentVariants?: ContentVariantResponse[];
+  contentVariants: ContentVariantResponse[];
   isPublic: boolean;
   isDraft: boolean;
   canUsersEditTags?: boolean;

@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/RecentPosts.vue')
     },
     {
+      path: '/posts/by-id/:postId',
+      name: 'view-posts',
+      component: () => import('../views/ViewPost.vue')
+    },
+    {
       path: '/oidc/callback',
       name: 'oidc-callback',
       component: () => import('../views/oidc/Callback.vue')
