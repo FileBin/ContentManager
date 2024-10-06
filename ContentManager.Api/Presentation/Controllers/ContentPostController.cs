@@ -16,7 +16,7 @@ public class ContentPostController(IContentPostService service) : ControllerBase
         return Ok(await service.GetPageAsync(pageDesc));
     }
 
-    [HttpGet("/count")]
+    [HttpGet("count")]
     [AllowAnonymous]
     public async Task<IActionResult> GetCount() {
         return Ok(await service.GetCountAsync());

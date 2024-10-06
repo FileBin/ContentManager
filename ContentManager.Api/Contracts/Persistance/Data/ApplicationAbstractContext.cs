@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContentManager.Api.Contracts.Persistance.Data;
 
-public abstract class ApplicationAbstractContext : DbContext
+public abstract class ApplicationAbstractContext(DbContextOptions options) : DbContext(options)
 {
     public abstract DbSet<Content> Contents { get; }
     public abstract DbSet<ContentPost> ContentPosts { get; }

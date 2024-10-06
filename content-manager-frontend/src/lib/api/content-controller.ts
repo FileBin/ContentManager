@@ -1,11 +1,16 @@
 import axios from "axios";
 
 import config from '@/config.json';
+import type { Quality } from "./models";
 
 const BASE_URL = `${config.apiUrl}/api/posts`;
 
 export function getContentUrlByUuid(content_uuid: string): string {
     return `${BASE_URL}/contents/${content_uuid}`;
+}
+
+export function getPreviewUrlByUuid(content_uuid: string, quality: Quality): string {
+    return `${BASE_URL}/contents/${content_uuid}?quality=${quality}`;
 }
 
 export function getContentUrlByPost(postId: string, postOrder: number): string {

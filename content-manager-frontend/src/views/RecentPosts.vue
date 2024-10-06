@@ -14,10 +14,33 @@ import {
 import {
   Button,
 } from '@/components/ui/button'
+import * as controller from '@/lib/api/content-post-controller';
+import type { ContentPostResponse } from '@/lib/api/models';
+import { ref } from 'vue';
+import ContentPostPreview from '@/components/misc/ContentPostPreview.vue';
 
 
+const defaultPage = 1
 const itemsPerPage = 80
-const totalItems = 80
+
+const totalItems = ref(itemsPerPage);
+const pageContent = ref<ContentPostResponse[]>([])
+
+updatePage(defaultPage);
+
+function updatePage(value: number): void {
+  controller.getCount().then(count => totalItems.value = count)
+  pageContent.value = []
+  getPage(value).then(array => pageContent.value = array);
+}
+
+
+async function getPage(page: number): Promise<ContentPostResponse[]> {
+  return await controller.getPage({
+    pageNumber: page,
+    pageSize: itemsPerPage,
+  });
+}
 </script>
 
 <template>
@@ -28,8 +51,14 @@ const totalItems = 80
       </CardTitle>
     </CardHeader>
     <CardContent class="w-full">
-      <Pagination v-slot="{ page }" :items-per-page="itemsPerPage" :total="totalItems" :sibling-count="1" show-edges :default-page="2"
-      class = "m-auto" @update:page="">
+      <div class="grid grid-cols-[repeat(auto-fill,_300px)] gap-2">
+        <template v-for="item in pageContent" >
+          <ContentPostPreview :post_info="item"/>
+        </template>
+      </div>
+
+      <Pagination v-slot="{ page }" :items-per-page="itemsPerPage" :total="totalItems" :sibling-count="1" show-edges
+        :default-page="defaultPage" class="m-auto" @update:page="updatePage">
         <PaginationList v-slot="{ items }" class="flex justify-center items-center gap-1">
           <PaginationFirst />
           <PaginationPrev />

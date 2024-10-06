@@ -13,7 +13,7 @@ builder.Host.UseSerilog((context, serviceProvider, loggerConfig) => {
         .Enrich.FromLogContext();
 });
 
-builder.Services.AddPersistance();
+builder.Services.AddPersistance(builder.Configuration);
 builder.Services.AddSecurity();
 builder.Services.AddFileStorage(builder.Configuration);
 builder.Services.AddApplication();

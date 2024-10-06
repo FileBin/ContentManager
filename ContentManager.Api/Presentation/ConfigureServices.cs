@@ -20,17 +20,29 @@ public static class ConfigureServices {
         .AddJsonOptions(options => {
             options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         });
-        
+
         services.AddHttpContextAccessor();
         services.RegisterServices();
 
         services.AddAuth(config);
+
+        services.AddCors(options => {
+            options.AddPolicy(name: "dev",
+                policy => {
+                    policy.SetIsOriginAllowed(host => true);
+                });
+        });
 
         return services;
     }
 
     public static void UsePresentation(this WebApplication app) {
         app.UseRouting();
+
+        if (app.Environment.IsDevelopment()) {
+            app.UseCors("dev");
+        }
+        
         app.UseAuth();
         app.MapControllers();
     }

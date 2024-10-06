@@ -7,30 +7,13 @@ using Npgsql;
 
 namespace ContentManager.Api.Persistence.Data;
 
-internal class ApplicationContext(IConfiguration configuration)
-: ApplicationAbstractContext {
+internal class ApplicationContext(DbContextOptions<ApplicationContext> options)
+: ApplicationAbstractContext(options) {
     public override DbSet<Content> Contents => Set<Content>();
     public override DbSet<ContentPost> ContentPosts => Set<ContentPost>();
     public override DbSet<ContentPostCollection> ContentPostCollections => Set<ContentPostCollection>();
     public override DbSet<ContentCollection> ContentCollections => Set<ContentCollection>();
     public override DbSet<Tag> Tags => Set<Tag>();
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-        var dataSourceBuilder = 
-            new NpgsqlDataSourceBuilder(configuration.GetConnectionString("ApplicationDatabase"));
-
-        dataSourceBuilder.MapEnum<ContentType>();
-        dataSourceBuilder.EnableParameterLogging();
-        var dataSource = dataSourceBuilder.Build();
-
-        optionsBuilder
-            .UseNpgsql(dataSource)
-            .UseSnakeCaseNamingConvention()
-            .EnableDetailedErrors()
-            .EnableSensitiveDataLogging();
-
-        base.OnConfiguring(optionsBuilder);
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);

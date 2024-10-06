@@ -39,10 +39,14 @@ export function getUserManager(userStore?: any): Oidc.UserManager {
 
   mgr.events.addAccessTokenExpired(function () {
     console.log('AccessToken Expired:', arguments);
-    alert('Session expired. Going out!');
-    mgr.signoutRedirect()
+    mgr.signinSilent()
+    .then(user => console.log('token renewed'))
+    .catch(err => {
+      alert('Session expired. Going out!');
+      mgr.signoutRedirect()
       .then(resp => console.log('signed out', resp))
       .catch(err => console.log(err))
+    })
   });
 
   mgr.events.addSilentRenewError(function () {

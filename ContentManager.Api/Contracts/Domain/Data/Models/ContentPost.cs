@@ -10,8 +10,6 @@ public class ContentPost : BaseEntity, IPost, IAuthorizedResource {
     [MaxLength(DefaultConstraints.MaxNameLength)]
     public required string Name { get; set; }
 
-    [ForeignKey(nameof(PreviewId))]
-    public virtual Content? Preview {get; set; }
     public Guid? PreviewId {get; set; }
 
     [MaxLength(DefaultConstraints.MaxDescriptionLength)]

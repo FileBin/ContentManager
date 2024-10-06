@@ -4,7 +4,7 @@ export class UserInfo {
 
     static fromProfile(oidcProfile: Oidc.Profile): UserInfo {
         return {
-            name: oidcProfile.name ?? "Anonymous",
+            name: oidcProfile.preferred_username ?? "Anonymous",
             email: oidcProfile.email ?? "",
         }
     }
