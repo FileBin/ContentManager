@@ -22,5 +22,15 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://api.content-manager.local',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      }
+    }
   }
 })

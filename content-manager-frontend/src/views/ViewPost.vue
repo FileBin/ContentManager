@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ContentViewer from '@/components/misc/ContentViewer.vue';
 import { Skeleton } from '@/components/ui/skeleton';
 import Fullscreen from '@/components/utils/Fullscreen.vue';
 import Page from '@/components/utils/Page.vue';
@@ -31,11 +32,11 @@ controller.getPost(postId).then(resp => post.value = resp);
     <Page :title="post.name" :description="post.description">
       <div class="flex">
         <template v-for="(item, index) in post.contentVariants">
-          <img @click="$refs.viewer?.show" class="max-w-[100vw] max-h-[100vh] mx-auto transition-all hover:brightness-75"
+          <img @click="() => $refs.viewer?.show(index, variant)" class="w-full h-full object-contain mx-auto transition-all hover:brightness-75"
             :alt="`${post.name}_p${index}_v${variant}`" :src="getPreviewUrlByUuid(item[variant], Quality._2k)">
         </template>
       </div>
     </Page>
-    <Fullscreen ref="viewer" />
+    <ContentViewer ref="viewer" :post="post" />
   </template>
 </template>
