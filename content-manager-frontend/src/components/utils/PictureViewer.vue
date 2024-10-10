@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { one, translate2d, rotate2d, scale2d } from '@/lib/utils';
-import { array, type NDArray } from 'vectorious';
+import { array, multiply, scale, zeros, type NDArray } from 'vectorious';
 import { ref, useTemplateRef } from 'vue';
 interface ViewContainerProps {
   url: string
@@ -21,10 +21,17 @@ function updateStyle() {
 }
 
 function handleMouseMoveEvent(e: MouseEvent) {
-  let button = (e.buttons | e.button)
-  if (button === 1) {
-    transform = transform.multiply(translate2d(e.movementX, e.movementY))
-    updateStyle();
+  const client_rect = rect.value?.getBoundingClientRect()
+  if (client_rect) {
+    let button = (e.buttons | e.button)
+    if (button === 1) {
+      if (e.shiftKey) {
+        handleRotateOnePoint(array([e.clientX, e.clientY]), client_rect)
+      } else {
+        transform = transform.multiply(translate2d(e.movementX, e.movementY))
+      }
+      updateStyle();
+    }
   }
 }
 
@@ -55,8 +62,12 @@ function handleTouchEvent(e: TouchEvent) {
   const client_rect = rect.value?.getBoundingClientRect();
   if (client_rect) {
     if (e.touches.length == 1) {
-      if (doubleClicked) {
-        handleOnePoint(array([e.touches[0].clientX, e.touches[0].clientY]), client_rect)
+      const touch = array([e.touches[0].clientX, e.touches[0].clientY]);
+      if (tapsNumber == 2) {
+        handleOnePoint(touch, client_rect)
+      }
+      if (tapsNumber == 3) {
+        handleRotateOnePoint(touch, client_rect);
       }
     } else if (e.touches.length == 2) {
       const touches = [
@@ -70,6 +81,7 @@ function handleTouchEvent(e: TouchEvent) {
 }
 
 let previousTouches: NDArray[] = []
+let anchor: NDArray | null = null
 
 function handleOnePoint(point: NDArray, client_rect: DOMRect) {
   point = point.subtract(array([client_rect.left, client_rect.top]))
@@ -82,18 +94,31 @@ function handleOnePoint(point: NDArray, client_rect: DOMRect) {
   previousTouches = [point];
 }
 
-function handleTwoPoints(points: NDArray[], client_rect: DOMRect) {
+function handleRotateOnePoint(point: NDArray, client_rect: DOMRect) {
+  if (anchor === null) {
+    anchor = array([client_rect.width, client_rect.height]).scale(0.5)
+
+    anchor.x += transform.data[6]
+    anchor.y += transform.data[7]
+
+    anchor.add(array([client_rect.left, client_rect.top]));
+  }
+  const dist = anchor.copy().subtract(point);
+  if (dist.dot(dist) > 10) {
+    handleTwoPoints([anchor.copy().add(dist), anchor.copy().subtract(dist)], client_rect, false);
+  }
+}
+
+function handleTwoPoints(points: NDArray[], client_rect: DOMRect, scale = true, rotate = true, translate = true) {
   const touches = points.map(p => p.subtract(array([client_rect.left, client_rect.top])))
   if (previousTouches.length > 1) {
-    const all_touches = touches.map((t, i) => [t, previousTouches[i]])
     const center = touches[0].copy()
       .add(touches[1])
       .scale(0.5)
       .subtract(array([client_rect.width * 0.5, client_rect.height * 0.5]))
 
-    const moves = all_touches.map(t => t[0].copy().subtract(t[1]))
-
-    const movement = moves[0].add(moves[1]).scale(0.5);
+    const mat = translate2d(center.data[0], center.data[1]);
+    const inv = translate2d(-center.data[0], -center.data[1]);
 
     let vectors = [touches, previousTouches]
       .map(t => t[0].copy().subtract(t[1]).copy());
@@ -105,52 +130,75 @@ function handleTwoPoints(points: NDArray[], client_rect: DOMRect) {
       .map(v => v.normalize())
       .map(v => array([v.data[0], v.data[1], 0]));
 
-    let rotation = vectors[0].cross(vectors[1]).data[2];
-    rotation = Math.asin(rotation);
-    if (sizes[0] > 0 && sizes[1] > 0) {
-      const scale = sizes[0] / sizes[1];
 
-      const mat = translate2d(center.data[0], center.data[1]);
-      const inv = translate2d(-center.data[0], -center.data[1]);
+    if (scale) {
+      if (sizes[0] > 0 && sizes[1] > 0) {
+        const scale = sizes[0] / sizes[1];
+
+
+        transform = transform
+          .multiply(inv)
+          .multiply(scale2d(scale))
+          .multiply(mat);
+      }
+    }
+    if (rotate) {
+      let rotation = vectors[0].cross(vectors[1]).data[2];
+      rotation = Math.asin(rotation);
 
       transform = transform
         .multiply(inv)
-        .multiply(scale2d(scale))
+        .multiply(rotate2d(rotation))
         .multiply(mat);
     }
 
-    transform = transform.multiply(rotate2d(rotation))
+    if (translate) {
+      const all_touches = touches.map((t, i) => [t, previousTouches[i]])
+      const moves = all_touches.map(t => t[0].copy().subtract(t[1]))
+      const movement = moves[0].add(moves[1]).scale(0.5);
 
-    transform = transform.multiply(translate2d(movement.data[0], movement.data[1]))
+      transform = transform.multiply(translate2d(movement.data[0], movement.data[1]))
+    }
     updateStyle();
   }
   previousTouches = [...touches]
 }
 
-let doubleClicked = false
+let tapsNumber = 1
 
 function handleTouchEndEvent() {
   previousTouches = []
-  doubleClicked = false;
+  anchor = null;
 }
 
 let myLatestTap = new Date().getTime();
+let myLatestTapPos = array([0, 0])
 
-function doubleTap() {
+function doubleTap(e: PointerEvent) {
 
-  const now = new Date().getTime();
-  const timesince = now - myLatestTap;
-  doubleClicked = (timesince < 600) && (timesince > 0);
+  const now = new Date().getTime()
+  const timesince = now - myLatestTap
+
+  const pos = array([e.clientX, e.clientY])
+
+  if (timesince < 600 && pos.copy().subtract(myLatestTapPos).norm() < 50) {
+    tapsNumber += 1
+  } else {
+    tapsNumber = 1;
+  }
+
+  console.log(tapsNumber)
 
   myLatestTap = new Date().getTime();
-
+  myLatestTapPos = pos
 }
 
 </script>
 
 <template>
   <div ref="rect" @mousemove="handleMouseMoveEvent" @wheel="handleMouseScrollEvent" @touchmove="handleTouchEvent"
-    @touchend="handleTouchEndEvent" @touchstart="doubleTap">
+    @touchend="handleTouchEndEvent" @mouseup="handleTouchEndEvent" @pointerdown="doubleTap"
+    @pointerup="e => myLatestTapPos = array([e.clientX, e.clientY])" @touchcancel="tapsNumber = 1">
     <img v-bind:style="{ transform: style }" id="image" :draggable="false" class="w-screen h-screen object-contain"
       alt="Loading..." :src="url">
   </div>
