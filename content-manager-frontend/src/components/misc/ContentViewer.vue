@@ -4,9 +4,10 @@ import Fullscreen from '../utils/Fullscreen.vue';
 import { getContentUrlByUuid } from '@/lib/api/content-controller';
 import type { ContentPostResponse } from '@/lib/api/models';
 import PinchScrollZoom from '@coddicat/vue-pinch-scroll-zoom';
+import PictureViewer from '../utils/PictureViewer.vue';
 
 const container = useTemplateRef('container')
-const zoomContainer = useTemplateRef('zoomContainer')
+//const zoomContainer = useTemplateRef('zoomContainer')
 
 interface ViewerProps {
   post: ContentPostResponse
@@ -30,6 +31,7 @@ defineExpose({
   hide,
 })
 
+//TODO make own picture touch zoom with rotation
 let order = 0;
 let variant = 0;
 
@@ -39,10 +41,12 @@ const h = ref(window.innerHeight)
 
 <template>
   <Fullscreen ref="container">
-    <PinchScrollZoom ref="zoomContainer" within centered key-actions :width="w" :height="h" :min-scale="0.1"
+    <PictureViewer :url="getContentUrlByUuid(post.contentVariants[order][variant])" />
+
+    <!-- <PinchScrollZoom ref="zoomContainer" within centered key-actions :width="w" :height="h" :min-scale="0.1"
       :max-scale="100" style="width: 100vw; height: 100vh">
-      <img :draggable="false" class="w-screen h-screen object-contain" alt="Loading..."
-        :src="getContentUrlByUuid(post.contentVariants[order][variant])">
-    </PinchScrollZoom>
+      <img v-on:touchmove="e => console.log(e)" :draggable="false" class="w-screen h-screen object-contain"
+        alt="Loading..." :src="getContentUrlByUuid(post.contentVariants[order][variant])">
+    </PinchScrollZoom> -->
   </Fullscreen>
 </template>
