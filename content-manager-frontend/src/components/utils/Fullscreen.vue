@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XIcon } from 'lucide-vue-next';
+import { FullscreenIcon, XIcon } from 'lucide-vue-next';
 import Button from '../ui/button/Button.vue';
 import { ref } from 'vue';
 
@@ -15,9 +15,18 @@ function hide() {
   isOpen.value = false;
 }
 
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+}
+
 defineExpose({
   show,
   hide,
+  toggleFullScreen,
 });
 
 </script>
@@ -27,9 +36,15 @@ defineExpose({
 <template>
   <div @touchmove.prevent v-if="isOpen"
     class="flex z-[100] flex-col fixed top-0 left-0 w-screen h-screen bg-[#000000c0]">
-    <Button class="z-[110] fixed w-max h-max p-4 top-4 right-4 opacity-75" @click="hide" variant="ghost">
-      <XIcon class="w-8 h-8" />
-    </Button>
+    <div class="z-[110] fixed top-4 right-4 flex">
+      <Button class="w-max h-max p-4 opacity-75" @click="toggleFullScreen" variant="ghost">
+        <FullscreenIcon class="w-8 h-8" />
+      </Button>
+
+      <Button class="w-max h-max p-4 opacity-75" @click="hide" variant="ghost">
+        <XIcon class="w-8 h-8" />
+      </Button>
+    </div>
     <div class="w-screen h-screen">
       <slot />
     </div>
